@@ -20,19 +20,19 @@ class MainActivity : AppCompatActivity() {
             val lp = editTextLoanPeriod.text.toString()
             val ir = editTextInterestRate.text.toString()
             var carLoan = 0
-            var interest = 0
-            var monthlyRepayment = 0
+            var interest = 0.0
+            var monthlyRepayment = 0.0
             if(cp.toString().equals("") || dp.toString().equals("") || lp.toString().equals("") || ir.toString().equals("")) {
                 Toast.makeText(getApplicationContext(), "Please fill in the detail to calculate.", Toast.LENGTH_SHORT).show()
                 println("toasted.")
             }
             else {
                 carLoan = cp.toInt() - dp.toInt()
-                interest = carLoan * ir.toInt() * lp.toInt()
+                interest = carLoan * (ir.toDouble()/100) * lp.toInt()
                 monthlyRepayment = (carLoan + interest) / lp.toInt() / 12
                 textViewLoan.append(carLoan.toString())
                 textViewInterest.append(interest.toString())
-                textViewMonthlyRepayment.append(monthlyRepayment.toString())
+                textViewMonthlyRepayment.append(String.format("%.2f",monthlyRepayment))
             }
         }
         buttonReset.setOnClickListener {
